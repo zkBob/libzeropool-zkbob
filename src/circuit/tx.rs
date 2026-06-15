@@ -193,6 +193,7 @@ pub fn c_transfer<C:CS, P:PoolParams<Fr=C::Fr>>(
         //assert root == cur_root || account.is_dummy()
         //all uninitialized empty accounts considered to be in the privacy set
         (cur_root.is_eq(&p.root) | s.tx.input.0.is_initial(&poolid)).assert_const(&true);
+        (input_pos_index.clone() * s.tx.input.0.is_initial(&poolid).as_num()).assert_zero();
 
         //input_index <= output_index
         c_comp(input_index, output_index, HEIGHT).assert_const(&false);
